@@ -1,0 +1,12 @@
+-- Crear usuario para Laravel
+CREATE USER 'laraveluser'@'localhost' IDENTIFIED BY 'Laravel2025.#';
+
+-- Crear base de datos
+CREATE DATABASE laraveldb;
+
+-- Otorgar privilegios controlados
+GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, INDEX, ALTER 
+ON laraveldb.* TO 'laraveluser'@'localhost';
+
+FLUSH PRIVILEGES;
+
