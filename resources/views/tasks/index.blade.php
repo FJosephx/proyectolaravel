@@ -85,10 +85,21 @@
                                         </div>
                                         
                                         <div class="flex items-center space-x-2">
+                                            <!-- Ver -->
+                                            <a href="{{ route('tasks.show', $task) }}"
+                                               class="p-2 bg-sky-100 text-sky-600 rounded-lg hover:bg-sky-200 transition duration-300"
+                                               title="Ver tarea">
+                                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                                </svg>
+                                            </a>
+
                                             <!-- Toggle Status -->
                                             <button @click="$parent.toggleTaskStatus()" 
                                                     :disabled="isToggling"
-                                                    class="p-2 rounded-lg transition duration-300 disabled:opacity-50 disabled:cursor-not-allowed {{ $task->status === 'completada' ? 'bg-amber-100 text-amber-600 hover:bg-amber-200' : 'bg-emerald-100 text-emerald-600 hover:bg-emerald-200' }}">
+                                                    class="p-2 rounded-lg transition duration-300 disabled:opacity-50 disabled:cursor-not-allowed {{ $task->status === 'completada' ? 'bg-amber-100 text-amber-600 hover:bg-amber-200' : 'bg-emerald-100 text-emerald-600 hover:bg-emerald-200' }}"
+                                                    title="Marcar como {{ $task->status === 'completada' ? 'pendiente' : 'completada' }}">
                                                 <svg x-show="!isToggling" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     @if($task->status === 'completada')
                                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
@@ -100,24 +111,26 @@
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
                                                 </svg>
                                             </button>
-                                            
+
                                             <!-- Edit -->
                                             <a href="{{ route('tasks.edit', $task) }}" 
-                                               class="p-2 bg-indigo-100 text-indigo-600 rounded-lg hover:bg-indigo-200 transition duration-300">
+                                               class="p-2 bg-indigo-100 text-indigo-600 rounded-lg hover:bg-indigo-200 transition duration-300"
+                                               title="Editar tarea">
                                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
                                                 </svg>
                                             </a>
-                                            
+
                                             <!-- Delete -->
                                             <div class="relative">
                                                 <button @click="showConfirmDelete = true" 
-                                                        class="p-2 bg-red-100 text-red-600 rounded-lg hover:bg-red-200 transition duration-300">
+                                                        class="p-2 bg-red-100 text-red-600 rounded-lg hover:bg-red-200 transition duration-300"
+                                                        title="Eliminar tarea">
                                                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
                                                     </svg>
                                                 </button>
-                                                
+
                                                 <!-- Confirmación de eliminación -->
                                                 <div x-show="showConfirmDelete" 
                                                      x-transition:enter="transition ease-out duration-200"
@@ -251,9 +264,7 @@
                 
                 async deleteTask() {
                     if (this.isDeleting) return;
-                    
                     this.isDeleting = true;
-                    
                     try {
                         const response = await fetch(`/tasks/${this.taskId}`, {
                             method: 'DELETE',
@@ -263,11 +274,9 @@
                                 'Accept': 'application/json'
                             }
                         });
-                        
                         if (response.ok) {
-                            const data = await response.json();
-                            // Remove the task element from DOM
-                            this.$el.remove();
+                            // Recargar la página para reflejar el cambio
+                            window.location.reload();
                         } else {
                             const error = await response.json();
                             alert(error.message || 'Error al eliminar la tarea');

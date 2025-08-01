@@ -57,6 +57,7 @@
                                       name="description" 
                                       rows="4" 
                                       x-model="form.description"
+                                      :class="fieldErrors.description ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : ''"
                                       class="block mt-1 w-full bg-white text-slate-900 border-slate-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"></textarea>
                             <div x-show="fieldErrors.description" x-text="fieldErrors.description" class="mt-2 text-sm text-red-600"></div>
                         </div>

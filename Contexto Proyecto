@@ -1,0 +1,20 @@
+El contexto de este proyecto es un sistema para gestionar tareas personales.
+
+Desarrollado en PHP con el framework Laravel.
+
+EL sistema incluye:
+
+- Sistema de autenticación, mediante laravel breeze(registro, login, recuperación de contraseña).
+- Arquitectura MVC (Model View Controller) aprendido y aplicado a lo largo de la ingeniería en DuocUC.
+- Gestión de tareas (CRUD) con validación en los formularios, relaciones correctas en la BD y control de acceso.
+- Interfaz construida con Blade, Tailwind CSS y Alphine.js.
+- Migraciones y seeders para estructurar y poblar la bd en mysql.
+- Control de versiones con git y estructura limpia del repositorio para que otras personas puedan clonar y probar el sistema fácilmente.
+
+El proyecto es una buena base y sólida para continuar agregando funcionalidades.
+Fue realizado para poner a prueba mis conocimientos y dominio sobre herramientas clave como:
+- Rutas en PHP.
+- Controladores y validaciones de requests.
+- Migraciones y ORM eloquent.
+- Uso de plantillas blade para optimizar y reutilizar componentes.
+- Uso de Vite como gestor de frontend moderno.
